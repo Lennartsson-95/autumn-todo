@@ -79,6 +79,9 @@ function Index() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [noteText, setNoteText] = useState("");
   const [openNote, setOpenNote] = useState<string | null>(null);
+  const [draftTitle, setDraftTitle] = useState("");
+  const [draftBody, setDraftBody] = useState("");
+  const openNoteObj = notes.find((n) => n.id === openNote);
 
   const chooseMonth = (m: number) => {
     setMonth(m);
