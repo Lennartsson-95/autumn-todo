@@ -10,9 +10,9 @@ import sheet2 from "@/assets/autumn-emojis-2.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Autumn To Do list" },
+      { title: "Autumn Todo list" },
       { name: "description", content: "En mysig höst-todo med veckodagar, emojis och anteckningar." },
-      { property: "og:title", content: "Autumn To Do list" },
+      { property: "og:title", content: "Autumn Todo list" },
       { property: "og:description", content: "En mysig höst-todo med veckodagar, emojis och anteckningar." },
     ],
   }),
@@ -153,7 +153,7 @@ function Index() {
   );
 
   const title = (
-    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autumn To Do list <Emoji i={9} size={64} /></h1>
+    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autumn Todo list <Emoji i={9} size={64} /></h1>
   );
 
   return (
@@ -189,7 +189,7 @@ function Index() {
 
           <div className="grid w-full gap-10 md:grid-cols-[1.6fr_1fr]">
             <section>
-              <h2 className="mb-5 text-center text-2xl font-semibold">{DAY_NAMES[(selected.getDay() + 6) % 7]} - To Do</h2>
+              <h2 className="mb-5 text-center text-2xl font-semibold">{DAY_NAMES[(selected.getDay() + 6) % 7]} - Todo</h2>
               <div className="min-h-[440px] rounded-3xl bg-panel p-5 shadow-soft">
                 <form onSubmit={(e) => { e.preventDefault(); addTodo(); }} className="relative flex items-center gap-2 rounded bg-panel-item px-4 py-2">
                   <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Add Todo" className="min-w-0 flex-1 bg-transparent py-2 text-panel-foreground placeholder:text-panel-muted outline-none" />
