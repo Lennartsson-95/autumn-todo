@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus, X } from "lucide-react";
-import bg from "@/assets/autumn-bg.jpg";
+import bg from "@/assets/autumn-bg-v2.jpg";
+import edgeLeft from "@/assets/autumn-edge-left.png";
+import edgeRight from "@/assets/autumn-edge-right.png";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -133,23 +135,25 @@ function Index() {
   );
 
   const title = (
-    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autum To Do list <Emoji i={9} size={64} /></h1>
+    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autumn To Do list <Emoji i={9} size={64} /></h1>
   );
 
   return (
-    <main className="min-h-screen bg-cover bg-left-bottom bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
+    <main className="relative min-h-screen bg-cover bg-center bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
+      <div aria-hidden className="pointer-events-none fixed inset-y-0 left-0 z-0 w-[13vw] min-w-[80px] bg-left" style={{ backgroundImage: `url(${edgeLeft})`, backgroundSize: "100% 100%" }} />
+      <div aria-hidden className="pointer-events-none fixed inset-y-0 right-0 z-0 w-[13vw] min-w-[80px] bg-right" style={{ backgroundImage: `url(${edgeRight})`, backgroundSize: "100% 100%" }} />
       {month === null ? (
-        <div className="flex min-h-[80vh] flex-col items-center justify-center gap-6 text-center">
+        <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center gap-6 text-center">
           {title}
           <p className="mt-4 text-xl font-semibold">Choose a month to open your week</p>
           {monthButton}
         </div>
       ) : (
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8">
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8">
           {title}
           {monthButton}
           <div className="flex items-center gap-3">
-            <button aria-label="Föregående vecka" onClick={() => shiftWeek(-1)} className="text-primary"><ChevronLeft /></button>
+            <button aria-label="Föregående vecka" onClick={() => shiftWeek(-1)} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-background/85 text-primary shadow-soft"><ChevronLeft /></button>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-7">
               {week.map((d, i) => {
                 const active = key(d) === dayKey;
@@ -162,7 +166,7 @@ function Index() {
                 );
               })}
             </div>
-            <button aria-label="Nästa vecka" onClick={() => shiftWeek(1)} className="text-primary"><ChevronRight /></button>
+            <button aria-label="Nästa vecka" onClick={() => shiftWeek(1)} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-background/85 text-primary shadow-soft"><ChevronRight /></button>
           </div>
 
           <div className="grid w-full gap-10 md:grid-cols-[1.6fr_1fr]">
@@ -207,7 +211,7 @@ function Index() {
               <h2 className="mb-5 text-center text-2xl font-semibold">Notes</h2>
               <div className="min-h-[440px] rounded-3xl bg-panel p-5 shadow-soft">
                 <form onSubmit={(e) => { e.preventDefault(); addNote(); }} className="flex items-center gap-2 rounded bg-panel-item px-4 py-2">
-                  <input value={noteText} onChange={(e) => setNoteText(e.target.value)} placeholder="Add Notes" className="min-w-0 flex-1 bg-transparent py-2 text-panel-foreground placeholder:text-panel-muted outline-none" />
+                  <input value={noteText} onChange={(e) => setNoteText(e.target.value)} placeholder="Add Note" className="min-w-0 flex-1 bg-transparent py-2 text-panel-foreground placeholder:text-panel-muted outline-none" />
                   <button type="submit" aria-label="Lägg till anteckning" className="p-1 text-panel-foreground"><Plus /></button>
                 </form>
                 <ul className="mt-6 space-y-6">
