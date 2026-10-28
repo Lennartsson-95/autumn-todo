@@ -133,7 +133,7 @@ function Index() {
   );
 
   const title = (
-    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autum To Do list <Emoji i={9} size={64} /></h1>
+    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autumn To Do list <Emoji i={9} size={64} /></h1>
   );
 
   return (
@@ -207,7 +207,7 @@ function Index() {
               <h2 className="mb-5 text-center text-2xl font-semibold">Notes</h2>
               <div className="min-h-[440px] rounded-3xl bg-panel p-5 shadow-soft">
                 <form onSubmit={(e) => { e.preventDefault(); addNote(); }} className="flex items-center gap-2 rounded bg-panel-item px-4 py-2">
-                  <input value={noteText} onChange={(e) => setNoteText(e.target.value)} placeholder="Add Notes" className="min-w-0 flex-1 bg-transparent py-2 text-panel-foreground placeholder:text-panel-muted outline-none" />
+                  <input value={noteText} onChange={(e) => setNoteText(e.target.value)} placeholder="Add Note" className="min-w-0 flex-1 bg-transparent py-2 text-panel-foreground placeholder:text-panel-muted outline-none" />
                   <button type="submit" aria-label="Lägg till anteckning" className="p-1 text-panel-foreground"><Plus /></button>
                 </form>
                 <ul className="mt-6 space-y-6">
