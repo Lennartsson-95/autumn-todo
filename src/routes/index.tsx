@@ -10,9 +10,9 @@ import sheet2 from "@/assets/autumn-emojis-2.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Autumn Todo list" },
+      { title: "My Todo list" },
       { name: "description", content: "En mysig höst-todo med veckodagar, emojis och anteckningar." },
-      { property: "og:title", content: "Autumn Todo list" },
+      { property: "og:title", content: "My Todo list" },
       { property: "og:description", content: "En mysig höst-todo med veckodagar, emojis och anteckningar." },
     ],
   }),
@@ -153,7 +153,7 @@ function Index() {
   );
 
   const title = (
-    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">Autumn Todo list <Emoji i={9} size={64} /></h1>
+    <h1 className="flex items-center gap-6 text-4xl font-semibold text-foreground">My Todo list <Emoji i={9} size={64} /></h1>
   );
 
   return (
