@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus } from "lucide-react";
+import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus, X } from "lucide-react";
 import bg from "@/assets/autumn-bg.jpg";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
 
