@@ -224,6 +224,21 @@ function Index() {
           </div>
         </div>
       )}
+
+      {openNoteObj && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 p-4" onClick={() => setOpenNote(null)}>
+          <div className="w-full max-w-xl rounded-2xl bg-panel p-6 shadow-soft" onClick={(e) => e.stopPropagation()}>
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <input value={draftTitle} onChange={(e) => setDraftTitle(e.target.value)} aria-label="Anteckningens rubrik" className="min-w-0 flex-1 bg-transparent text-2xl font-semibold text-panel-foreground outline-none" />
+              <button aria-label="Stäng" onClick={() => setOpenNote(null)} className="p-1 text-panel-foreground"><X size={22} /></button>
+            </div>
+            <textarea autoFocus value={draftBody} onChange={(e) => setDraftBody(e.target.value)} placeholder="Skriv din anteckning..." className="h-80 w-full resize-none rounded-xl bg-panel-item p-4 text-lg text-panel-foreground placeholder:text-panel-muted outline-none" />
+            <div className="mt-4 flex justify-end">
+              <button onClick={() => { setNotes(notes.map((x) => x.id === openNoteObj.id ? { ...x, title: draftTitle.trim() || x.title, body: draftBody } : x)); setOpenNote(null); }} className="rounded-full bg-accent px-7 py-2.5 text-lg font-semibold text-accent-foreground shadow-soft transition-transform hover:-translate-y-0.5">Spara</button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
