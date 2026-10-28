@@ -139,15 +139,17 @@ function Index() {
   );
 
   return (
-    <main className="min-h-screen bg-cover bg-center bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
+    <main className="relative min-h-screen bg-cover bg-center bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
+      <div aria-hidden className="pointer-events-none fixed inset-y-0 left-0 z-0 w-[13vw] min-w-[80px] bg-cover bg-left" style={{ backgroundImage: `url(${edgeLeft})` }} />
+      <div aria-hidden className="pointer-events-none fixed inset-y-0 right-0 z-0 w-[13vw] min-w-[80px] bg-cover bg-right" style={{ backgroundImage: `url(${edgeRight})` }} />
       {month === null ? (
-        <div className="flex min-h-[80vh] flex-col items-center justify-center gap-6 text-center">
+        <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center gap-6 text-center">
           {title}
           <p className="mt-4 text-xl font-semibold">Choose a month to open your week</p>
           {monthButton}
         </div>
       ) : (
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8">
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8">
           {title}
           {monthButton}
           <div className="flex items-center gap-3">
