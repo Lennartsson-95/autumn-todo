@@ -49,7 +49,7 @@ function Emoji({ i, size = 32 }: { i: number; size?: number }) {
   return (
     <span
       className="emoji-sprite inline-block shrink-0 rounded"
-      style={{ width: size, height: size, backgroundImage: `url(${s.url})`, backgroundPosition: `${(local % s.cols) * (100 / (s.cols - 1))}% ${Math.floor(local / s.cols) * (100 / (s.rows - 1))}%` }}
+      style={{ width: size, height: size, backgroundImage: `url(${s.url})`, backgroundSize: `${s.cols * 100}% ${s.rows * 100}%`, backgroundPosition: `${(local % s.cols) * (100 / (s.cols - 1))}% ${Math.floor(local / s.cols) * (100 / (s.rows - 1))}%` }}
     />
   );
 }
@@ -198,11 +198,13 @@ function Index() {
                   </button>
                   <button type="submit" aria-label="Lägg till" className="p-1 text-panel-foreground"><Plus /></button>
                   {emojiOpen && (
-                    <div className="absolute right-0 top-14 z-20 grid grid-cols-5 gap-1 rounded-xl bg-background p-2 shadow-soft">
-                      <button type="button" onClick={() => { setEmoji(null); setEmojiOpen(false); }} className="h-10 w-10 rounded text-xs hover:bg-panel-muted/40">Ingen</button>
-                      {Array.from({ length: 35 }, (_, i) => (
-                        <button type="button" key={i} onClick={() => { setEmoji(i); setEmojiOpen(false); }} className="flex h-10 w-10 items-center justify-center rounded hover:bg-panel-muted/40"><Emoji i={i} /></button>
-                      ))}
+                    <div className="absolute right-0 top-14 z-20 rounded-xl bg-background p-2 shadow-soft">
+                      <div className="grid max-h-[320px] grid-cols-6 gap-1 overflow-y-auto">
+                        <button type="button" onClick={() => { setEmoji(null); setEmojiOpen(false); }} className="h-10 w-10 rounded text-xs hover:bg-panel-muted/40">Ingen</button>
+                        {Array.from({ length: EMOJI_COUNT }, (_, i) => (
+                          <button type="button" key={i} onClick={() => { setEmoji(i); setEmojiOpen(false); }} className="flex h-10 w-10 items-center justify-center rounded hover:bg-panel-muted/40"><Emoji i={i} /></button>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </form>
