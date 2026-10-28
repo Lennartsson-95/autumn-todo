@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus } from "lucide-react";
+import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus, X } from "lucide-react";
 import bg from "@/assets/autumn-bg.jpg";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
 
@@ -79,6 +79,9 @@ function Index() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [noteText, setNoteText] = useState("");
   const [openNote, setOpenNote] = useState<string | null>(null);
+  const [draftTitle, setDraftTitle] = useState("");
+  const [draftBody, setDraftBody] = useState("");
+  const openNoteObj = notes.find((n) => n.id === openNote);
 
   const chooseMonth = (m: number) => {
     setMonth(m);
@@ -106,8 +109,12 @@ function Index() {
   };
   const addNote = () => {
     if (!noteText.trim()) return;
-    setNotes([...notes, { id: uid(), title: noteText.trim(), body: "" }]);
+    const n: Note = { id: uid(), title: noteText.trim(), body: "" };
+    setNotes([...notes, n]);
     setNoteText("");
+    setOpenNote(n.id);
+    setDraftTitle(n.title);
+    setDraftBody("");
   };
 
   const monthButton = (
@@ -207,20 +214,32 @@ function Index() {
                   {notes.map((n) => (
                     <li key={n.id} className="rounded bg-panel-item text-panel-foreground">
                       <div className="flex items-center px-4 py-3">
-                        <button onClick={() => setOpenNote(openNote === n.id ? null : n.id)} className="flex-1 text-left text-lg font-semibold">{n.title}</button>
+                        <button onClick={() => { setOpenNote(n.id); setDraftTitle(n.title); setDraftBody(n.body); }} className="flex-1 text-left text-lg font-semibold">{n.title}</button>
                         <Menu
                           onEdit={() => { const v = prompt("Byt namn", n.title); if (v?.trim()) setNotes(notes.map((x) => x.id === n.id ? { ...x, title: v.trim() } : x)); }}
                           onDelete={() => setNotes(notes.filter((x) => x.id !== n.id))}
                         />
                       </div>
-                      {openNote === n.id && (
-                        <textarea autoFocus value={n.body} onChange={(e) => setNotes(notes.map((x) => x.id === n.id ? { ...x, body: e.target.value } : x))} placeholder="Skriv här..." rows={5} className="w-full resize-none rounded-b bg-panel/40 px-4 py-3 text-panel-foreground placeholder:text-panel-muted outline-none" />
-                      )}
                     </li>
                   ))}
                 </ul>
               </div>
             </section>
+          </div>
+        </div>
+      )}
+
+      {openNoteObj && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 p-4" onClick={() => setOpenNote(null)}>
+          <div className="w-full max-w-xl rounded-2xl bg-panel p-6 shadow-soft" onClick={(e) => e.stopPropagation()}>
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <input value={draftTitle} onChange={(e) => setDraftTitle(e.target.value)} aria-label="Anteckningens rubrik" className="min-w-0 flex-1 bg-transparent text-2xl font-semibold text-panel-foreground outline-none" />
+              <button aria-label="Stäng" onClick={() => setOpenNote(null)} className="p-1 text-panel-foreground"><X size={22} /></button>
+            </div>
+            <textarea autoFocus value={draftBody} onChange={(e) => setDraftBody(e.target.value)} placeholder="Skriv din anteckning..." className="h-80 w-full resize-none rounded-xl bg-panel-item p-4 text-lg text-panel-foreground placeholder:text-panel-muted outline-none" />
+            <div className="mt-4 flex justify-end">
+              <button onClick={() => { setNotes(notes.map((x) => x.id === openNoteObj.id ? { ...x, title: draftTitle.trim() || x.title, body: draftBody } : x)); setOpenNote(null); }} className="rounded-full bg-accent px-7 py-2.5 text-lg font-semibold text-accent-foreground shadow-soft transition-transform hover:-translate-y-0.5">Spara</button>
+            </div>
           </div>
         </div>
       )}
