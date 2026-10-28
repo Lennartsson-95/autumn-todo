@@ -41,7 +41,7 @@ function sheetFor(i: number): { sheet: EmojiSheet; local: number } {
     if (i < acc + s.count) return { sheet: s, local: i - acc };
     acc += s.count;
   }
-  return { sheet: SHEETS[0], local: 0 };
+  return { sheet: SHEETS[SHEETS.length - 1]!, local: 0 };
 }
 
 function Emoji({ i, size = 32 }: { i: number; size?: number }) {
