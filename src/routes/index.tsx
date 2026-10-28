@@ -5,6 +5,7 @@ import bg from "@/assets/autumn-bg-v2.jpg";
 import edgeLeft from "@/assets/autumn-edge-left.png";
 import edgeRight from "@/assets/autumn-edge-right.png";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
+import sheet2 from "@/assets/autumn-emojis-2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,11 +28,28 @@ const YEAR = 2026;
 const key = (d: Date) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 const uid = () => Math.random().toString(36).slice(2, 10);
 
+type EmojiSheet = { url: string; cols: number; rows: number; count: number };
+const SHEETS: EmojiSheet[] = [
+  { url: sheet.url, cols: 5, rows: 7, count: 35 },
+  { url: sheet2.url, cols: 8, rows: 4, count: 32 },
+];
+const EMOJI_COUNT = SHEETS.reduce((n, s) => n + s.count, 0);
+
+function sheetFor(i: number): { sheet: EmojiSheet; local: number } {
+  let acc = 0;
+  for (const s of SHEETS) {
+    if (i < acc + s.count) return { sheet: s, local: i - acc };
+    acc += s.count;
+  }
+  return { sheet: SHEETS[0]!, local: 0 };
+}
+
 function Emoji({ i, size = 32 }: { i: number; size?: number }) {
+  const { sheet: s, local } = sheetFor(i);
   return (
     <span
       className="emoji-sprite inline-block shrink-0 rounded"
-      style={{ width: size, height: size, backgroundImage: `url(${sheet.url})`, backgroundPosition: `${(i % 5) * 25}% ${Math.floor(i / 5) * (100 / 6)}%` }}
+      style={{ width: size, height: size, backgroundImage: `url(${s.url})`, backgroundSize: `${s.cols * 100}% ${s.rows * 100}%`, backgroundPosition: `${(local % s.cols) * (100 / (s.cols - 1))}% ${Math.floor(local / s.cols) * (100 / (s.rows - 1))}%` }}
     />
   );
 }
@@ -180,11 +198,13 @@ function Index() {
                   </button>
                   <button type="submit" aria-label="Lägg till" className="p-1 text-panel-foreground"><Plus /></button>
                   {emojiOpen && (
-                    <div className="absolute right-0 top-14 z-20 grid grid-cols-5 gap-1 rounded-xl bg-background p-2 shadow-soft">
-                      <button type="button" onClick={() => { setEmoji(null); setEmojiOpen(false); }} className="h-10 w-10 rounded text-xs hover:bg-panel-muted/40">Ingen</button>
-                      {Array.from({ length: 35 }, (_, i) => (
-                        <button type="button" key={i} onClick={() => { setEmoji(i); setEmojiOpen(false); }} className="flex h-10 w-10 items-center justify-center rounded hover:bg-panel-muted/40"><Emoji i={i} /></button>
-                      ))}
+                    <div className="absolute right-0 top-14 z-20 rounded-xl bg-background p-2 shadow-soft">
+                      <div className="grid max-h-[320px] grid-cols-6 gap-1 overflow-y-auto">
+                        <button type="button" onClick={() => { setEmoji(null); setEmojiOpen(false); }} className="h-10 w-10 rounded text-xs hover:bg-panel-muted/40">Ingen</button>
+                        {Array.from({ length: EMOJI_COUNT }, (_, i) => (
+                          <button type="button" key={i} onClick={() => { setEmoji(i); setEmojiOpen(false); }} className="flex h-10 w-10 items-center justify-center rounded hover:bg-panel-muted/40"><Emoji i={i} /></button>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </form>
