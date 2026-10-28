@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus, X } from "lucide-react";
-import bg from "@/assets/autumn-bg.jpg";
+import bg from "@/assets/autumn-bg-v2.jpg";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -137,7 +137,7 @@ function Index() {
   );
 
   return (
-    <main className="min-h-screen bg-cover bg-left-bottom bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
+    <main className="min-h-screen bg-cover bg-center bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
       {month === null ? (
         <div className="flex min-h-[80vh] flex-col items-center justify-center gap-6 text-center">
           {title}
