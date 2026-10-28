@@ -109,8 +109,12 @@ function Index() {
   };
   const addNote = () => {
     if (!noteText.trim()) return;
-    setNotes([...notes, { id: uid(), title: noteText.trim(), body: "" }]);
+    const n: Note = { id: uid(), title: noteText.trim(), body: "" };
+    setNotes([...notes, n]);
     setNoteText("");
+    setOpenNote(n.id);
+    setDraftTitle(n.title);
+    setDraftBody("");
   };
 
   const monthButton = (
