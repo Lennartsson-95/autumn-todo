@@ -210,15 +210,12 @@ function Index() {
                   {notes.map((n) => (
                     <li key={n.id} className="rounded bg-panel-item text-panel-foreground">
                       <div className="flex items-center px-4 py-3">
-                        <button onClick={() => setOpenNote(openNote === n.id ? null : n.id)} className="flex-1 text-left text-lg font-semibold">{n.title}</button>
+                        <button onClick={() => { setOpenNote(n.id); setDraftTitle(n.title); setDraftBody(n.body); }} className="flex-1 text-left text-lg font-semibold">{n.title}</button>
                         <Menu
                           onEdit={() => { const v = prompt("Byt namn", n.title); if (v?.trim()) setNotes(notes.map((x) => x.id === n.id ? { ...x, title: v.trim() } : x)); }}
                           onDelete={() => setNotes(notes.filter((x) => x.id !== n.id))}
                         />
                       </div>
-                      {openNote === n.id && (
-                        <textarea autoFocus value={n.body} onChange={(e) => setNotes(notes.map((x) => x.id === n.id ? { ...x, body: e.target.value } : x))} placeholder="Skriv här..." rows={5} className="w-full resize-none rounded-b bg-panel/40 px-4 py-3 text-panel-foreground placeholder:text-panel-muted outline-none" />
-                      )}
                     </li>
                   ))}
                 </ul>
