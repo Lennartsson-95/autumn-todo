@@ -5,6 +5,7 @@ import bg from "@/assets/autumn-bg-v2.jpg";
 import edgeLeft from "@/assets/autumn-edge-left.png";
 import edgeRight from "@/assets/autumn-edge-right.png";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
+import sheet2 from "@/assets/autumn-emojis-2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,11 +28,28 @@ const YEAR = 2026;
 const key = (d: Date) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 const uid = () => Math.random().toString(36).slice(2, 10);
 
+type EmojiSheet = { url: string; cols: number; rows: number; count: number };
+const SHEETS: EmojiSheet[] = [
+  { url: sheet.url, cols: 5, rows: 7, count: 35 },
+  { url: sheet2.url, cols: 8, rows: 4, count: 32 },
+];
+const EMOJI_COUNT = SHEETS.reduce((n, s) => n + s.count, 0);
+
+function sheetFor(i: number): { sheet: EmojiSheet; local: number } {
+  let acc = 0;
+  for (const s of SHEETS) {
+    if (i < acc + s.count) return { sheet: s, local: i - acc };
+    acc += s.count;
+  }
+  return { sheet: SHEETS[0], local: 0 };
+}
+
 function Emoji({ i, size = 32 }: { i: number; size?: number }) {
+  const { sheet: s, local } = sheetFor(i);
   return (
     <span
       className="emoji-sprite inline-block shrink-0 rounded"
-      style={{ width: size, height: size, backgroundImage: `url(${sheet.url})`, backgroundPosition: `${(i % 5) * 25}% ${Math.floor(i / 5) * (100 / 6)}%` }}
+      style={{ width: size, height: size, backgroundImage: `url(${s.url})`, backgroundPosition: `${(local % s.cols) * (100 / (s.cols - 1))}% ${Math.floor(local / s.cols) * (100 / (s.rows - 1))}%` }}
     />
   );
 }
