@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, MoreVertical, Plus, X } from "lucide-react";
 import bg from "@/assets/autumn-bg-v2.jpg";
+import edgeLeft from "@/assets/autumn-edge-left.png";
+import edgeRight from "@/assets/autumn-edge-right.png";
 import sheet from "@/assets/autumn-emojis.png.asset.json";
 
 export const Route = createFileRoute("/")({
