@@ -175,11 +175,11 @@ function Index() {
             <div className="flex flex-wrap justify-center gap-3 sm:gap-7">
               {week.map((d, i) => {
                 const active = key(d) === dayKey;
-                const total = (todos[key(d)] ?? []).length;
+                const left = (todos[key(d)] ?? []).filter((t) => !t.done).length;
                 return (
                   <button key={i} onClick={() => setSelected(d)} className={`relative flex h-[76px] w-20 flex-col items-center justify-center gap-2 rounded-2xl text-sm text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 ${active ? "bg-accent" : "bg-primary"}`}>
                     <span>{DAYS[i]}</span><span>{d.getDate()}</span>
-                    {total > 0 && <span aria-label={`${total} todos`} className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1 text-xs font-bold text-accent-foreground ring-2 ring-background shadow-soft">{total}</span>}
+                    {left > 0 && <span aria-label={`${left} todos left`} className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1 text-xs font-bold text-accent-foreground ring-2 ring-background shadow-soft">{left}</span>}
                   </button>
                 );
               })}
