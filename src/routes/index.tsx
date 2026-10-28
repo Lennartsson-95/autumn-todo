@@ -153,7 +153,7 @@ function Index() {
           {title}
           {monthButton}
           <div className="flex items-center gap-3">
-            <button aria-label="Föregående vecka" onClick={() => shiftWeek(-1)} className="text-primary"><ChevronLeft /></button>
+            <button aria-label="Föregående vecka" onClick={() => shiftWeek(-1)} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-background/85 text-primary shadow-soft"><ChevronLeft /></button>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-7">
               {week.map((d, i) => {
                 const active = key(d) === dayKey;
@@ -166,7 +166,7 @@ function Index() {
                 );
               })}
             </div>
-            <button aria-label="Nästa vecka" onClick={() => shiftWeek(1)} className="text-primary"><ChevronRight /></button>
+            <button aria-label="Nästa vecka" onClick={() => shiftWeek(1)} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-background/85 text-primary shadow-soft"><ChevronRight /></button>
           </div>
 
           <div className="grid w-full gap-10 md:grid-cols-[1.6fr_1fr]">
