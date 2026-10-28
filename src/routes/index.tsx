@@ -140,8 +140,8 @@ function Index() {
 
   return (
     <main className="relative min-h-screen bg-cover bg-center bg-fixed px-4 py-12" style={{ backgroundImage: `url(${bg})` }}>
-      <div aria-hidden className="pointer-events-none fixed inset-y-0 left-0 z-0 w-[13vw] min-w-[80px] bg-cover bg-left" style={{ backgroundImage: `url(${edgeLeft})` }} />
-      <div aria-hidden className="pointer-events-none fixed inset-y-0 right-0 z-0 w-[13vw] min-w-[80px] bg-cover bg-right" style={{ backgroundImage: `url(${edgeRight})` }} />
+      <div aria-hidden className="pointer-events-none fixed inset-y-0 left-0 z-0 w-[13vw] min-w-[80px] bg-left" style={{ backgroundImage: `url(${edgeLeft})`, backgroundSize: "100% 100%" }} />
+      <div aria-hidden className="pointer-events-none fixed inset-y-0 right-0 z-0 w-[13vw] min-w-[80px] bg-right" style={{ backgroundImage: `url(${edgeRight})`, backgroundSize: "100% 100%" }} />
       {month === null ? (
         <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center gap-6 text-center">
           {title}
