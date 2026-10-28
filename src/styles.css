@@ -142,3 +142,29 @@
     color: var(--color-foreground);
   }
 }
+
+:root {
+  --background: oklch(0.93 0.025 75);
+  --foreground: oklch(0.18 0.02 50);
+  --primary: oklch(0.33 0.07 60);
+  --primary-foreground: oklch(0.97 0.01 75);
+  --accent: oklch(0.47 0.11 50);
+  --accent-foreground: oklch(0.97 0.01 75);
+  --panel: oklch(0.33 0.07 60);
+  --panel-item: oklch(0.43 0.06 62);
+  --panel-foreground: oklch(0.96 0.01 75);
+  --panel-muted: oklch(0.8 0.03 70);
+  --shadow-soft: 0 4px 10px -2px oklch(0.2 0.04 50 / 35%);
+}
+@theme inline {
+  --color-panel: var(--panel);
+  --color-panel-item: var(--panel-item);
+  --color-panel-foreground: var(--panel-foreground);
+  --color-panel-muted: var(--panel-muted);
+  --shadow-soft: var(--shadow-soft);
+  --font-sans: "Open Sans", system-ui, sans-serif;
+}
+@utility emoji-sprite {
+  background-size: 500% 700%;
+  background-repeat: no-repeat;
+}
